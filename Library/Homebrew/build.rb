@@ -69,7 +69,7 @@ def pre_superenv_hacks f
 end
 
 def install f
-  keg_only_deps = f.recursive_deps.uniq.select{|dep| dep.keg_only? }
+  deps = f.recursive_deps
 
   pre_superenv_hacks(f)
   require 'superenv'
@@ -81,10 +81,10 @@ def install f
     f.recursive_requirements.each { |rq| rq.modify_build_environment }
   end
 
-  keg_only_deps.each do |dep|
+  deps.each do |dep|
     opt = HOMEBREW_PREFIX/:opt/dep.name
     fixopt(dep) unless opt.directory?
-    if not superenv?
+    if not superenv? and dep.keg_only?
       ENV.prepend_path 'PATH', "#{opt}/bin"
       ENV.prepend_path 'PKG_CONFIG_PATH', "#{opt}/lib/pkgconfig"
       ENV.prepend_path 'PKG_CONFIG_PATH', "#{opt}/share/pkgconfig"
@@ -96,7 +96,7 @@ def install f
   end
 
   if superenv?
-    ENV.deps = keg_only_deps.map(&:to_s)
+    ENV.deps = deps.map(&:to_s)
     ENV.x11 = f.recursive_requirements.detect{|rq| rq.class == X11Dependency }
     ENV.setup_build_environment
     f.recursive_requirements.each { |rq| rq.modify_build_environment }

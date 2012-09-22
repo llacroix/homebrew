@@ -105,7 +105,6 @@ class << ENV
       paths << "#{MacSystem.xcode43_developer_dir}/Toolchains/XcodeDefault.xctoolchain/usr/bin"
     end
     paths += deps.map{|dep| "#{HOMEBREW_PREFIX}/opt/#{dep}/bin" }
-    paths << HOMEBREW_PREFIX/:bin
     paths << "#{MacSystem.x11_prefix}/bin" if x11?
     paths += %w{/usr/bin /bin /usr/sbin /sbin}
     paths.to_path_s
@@ -125,7 +124,6 @@ class << ENV
 
   def determine_cmake_prefix_path
     paths = deps.map{|dep| "#{HOMEBREW_PREFIX}/opt/#{dep}" }
-    paths << HOMEBREW_PREFIX.to_s # put ourselves ahead of everything else
     paths << "#{MacOS.sdk_path}/usr" if MacSystem.xcode43_without_clt?
     paths.to_path_s
   end
