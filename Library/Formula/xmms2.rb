@@ -28,7 +28,7 @@ class Xmms2 < Formula
     # system "echo `git clone git://git.xmms.se/xmms2/s4.git src/lib/s4`"
     `git init`
     `git add . && git commit -m "init"`
-    `git clone git://git.xmms.se/xmms2/s4.git src/lib/s4`
+    `git clone git://git.xmms2.org/xmms2/s4.git src/lib/s4`
     `./waf configure --prefix=#{prefix} --without-optional=s4,perl,ruby`
     `./waf build`
     `./waf install`
