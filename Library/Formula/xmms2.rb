@@ -1,17 +1,11 @@
 require 'formula'
 
-# Documentation: https://github.com/mxcl/homebrew/wiki/Formula-Cookbook
-# PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
-
 class Xmms2 < Formula
   homepage 'http://xmms2.org/wiki/Main_Page'
   url 'http://git.xmms2.org/xmms2/xmms2-devel/snapshot/6e6a9635f04c3e2c7af8dd9336ca6006d89f8114.tar.gz'
   sha1 'b8ade9e2c511280fe98ed81df438e357b22f8157'
   version '0.8.1'
 
-  # depends_on 'cmake' => :build
-  # depends_on :x11 # if your formula requires any X11/XQuartz components
-  # ENV.libxml2
   depends_on 'glib'
   depends_on 'sqlite'
   depends_on 'flac'
@@ -38,6 +32,6 @@ class Xmms2 < Formula
     # This test will fail and we won't accept that! It's enough to just replace
     # "false" with the main program this formula installs, but it'd be nice if you
     # were more thorough. Run the test with `brew test xmms2`.
-    system "false"
+    system "xmms2"
   end
 end
