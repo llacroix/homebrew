@@ -9,11 +9,12 @@ class Soil < Formula
   url 'git@github.com:llacroix/libSOIL.git', :using => :git #:revision => "55675acaa20a6baa8ce2a0eb98d0dc6320af3dc0"
   version "1.16"
 
-  depends_on :python
+  depends_on "scons"
+  #depends_on :python => ['scons']
 
   def install
-    system python, "scons/scons.py", "-Q", "PREFIX=#{prefix}"
-    system python, "scons/scons.py", "install"
+    system "#{HOMEBREW_PREFIX}/bin/scons", "-Q", "PREFIX=#{prefix}"
+    system "#{HOMEBREW_PREFIX}/bin/scons", "install"
   end
 
   test do
