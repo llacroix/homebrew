@@ -1,19 +1,19 @@
 require 'formula'
 
-# Documentation: https://github.com/mxcl/homebrew/wiki/Formula-Cookbook
-#                /usr/local/Library/Contributions/example-formula.rb
-# PLEASE REMOVE ALL GENERATED COMMENTS BEFORE SUBMITTING YOUR PULL REQUEST!
-
 class Soil < Formula
   homepage 'http://www.lonesock.net/soil.html'
-  url 'git@github.com:llacroix/libSOIL.git', :using => :git #:revision => "55675acaa20a6baa8ce2a0eb98d0dc6320af3dc0"
+  url 'git@github.com:llacroix/libSOIL.git', :using => :git, 
+                                             :revision => "6023f63fd39b0f31aa94d5bf89d4551785c5874c"
   version "1.16"
 
+  # Depends on scons to build 
   depends_on "scons"
-  #depends_on :python => ['scons']
 
   def install
+    # Configure and compile using prefix
     system "#{HOMEBREW_PREFIX}/bin/scons", "-Q", "PREFIX=#{prefix}"
+
+    # Install using the configured prefix path
     system "#{HOMEBREW_PREFIX}/bin/scons", "install"
   end
 
